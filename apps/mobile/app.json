@@ -1,11 +1,19 @@
 {
   "expo": {
-    "name": "Savanna",
-    "slug": "savanna",
-    "version": "0.1.0",
+    "name": "SafTap",
+    "slug": "saftap",
+    "version": "1.0.0",
     "orientation": "portrait",
-    "userInterfaceStyle": "automatic",
-    "assetBundlePatterns": ["**/*"],
+    "userInterfaceStyle": "light",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -15,7 +23,11 @@
       }
     },
     "web": {
-      "bundler": "metro"
-    }
+      "bundler": "metro",
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-font"
+    ]
   }
 }
