@@ -2,6 +2,7 @@ import cors from "cors";
 import express from "express";
 import helmet from "helmet";
 import { API_VERSION, createHealthResponse } from "@saftap/shared";
+import { authRouter } from "./modules/auth/auth.routes.js";
 
 const app = express();
 const port = Number(process.env.PORT ?? 3000);
@@ -17,6 +18,8 @@ app.get("/health", (_request, response) => {
 app.get("/api/version", (_request, response) => {
   response.json({ version: API_VERSION });
 });
+
+app.use("/api/auth", authRouter);
 
 app.listen(port, () => {
   console.log(`Backend listening on http://localhost:${port}`);
