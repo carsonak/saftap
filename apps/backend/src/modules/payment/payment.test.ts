@@ -150,7 +150,7 @@ describe("payment service", () => {
 
     expect(darajaServiceMock.sendToMpesa).toHaveBeenCalledWith(
       expect.objectContaining({
-        phone: "+254700000001",
+        phoneNumber: "+254700000001",
       }),
     );
     expect(darajaServiceMock.sendToTill).not.toHaveBeenCalled();
@@ -203,7 +203,8 @@ describe("payment service", () => {
   ])("rejects missing or competing destinations %#", async (params) => {
     await expect(paymentService.initiatePayment(params)).rejects.toMatchObject({
       statusCode: 400,
-      message: "Provide exactly one destination: destinationPhone, destinationTill, or paybillNumber",
+      message:
+        "Provide exactly one destination: destinationPhone, destinationTill, or paybillNumber",
     });
     expect(prismaMock.wallet.findUnique).not.toHaveBeenCalled();
     expect(paymentService.executeUsdcTransfer).not.toHaveBeenCalled();
