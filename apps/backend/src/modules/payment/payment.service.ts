@@ -245,14 +245,14 @@ async function initiatePaymentImpl(params: InitiatePaymentParams): Promise<Trans
       params.destinationTill || params.paybillNumber
         ? await darajaService.sendToTill({
             amountKes: amountKes.toNumber(),
-            tillNumber: params.destinationTill,
-            paybillNumber: params.paybillNumber,
+            tillNumber: params.destinationTill ?? params.paybillNumber ?? "",
             accountRef: params.accountRef,
             transactionId: transaction.id,
           })
         : await darajaService.sendToMpesa({
             amountKes: amountKes.toNumber(),
-            phone: params.destinationPhone,
+            phoneNumber: params.destinationPhone ?? "",
+            recipientLabel: params.destinationPhone ?? "Tourist payout",
             transactionId: transaction.id,
           });
 
