@@ -1,11 +1,12 @@
 {
   "expo": {
-    "name": "Savanna",
-    "slug": "savanna",
+    "name": "SafTap",
+    "slug": "saftap",
     "version": "0.1.0",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "assetBundlePatterns": ["**/*"],
+    "platforms": ["ios", "android", "web"],
     "ios": {
       "supportsTablet": true
     },

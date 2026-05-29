@@ -1,9 +1,9 @@
 {
-  "name": "@savanna/shared",
+  "name": "@saftap/shared",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "main": "./dist/index.js",
+  "main": "expo-router/entry",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {

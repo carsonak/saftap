@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "outDir": "dist",
     "rootDir": "src",
@@ -12,8 +13,8 @@
     "sourceMap": true,
     "noEmit": false,
     "paths": {
-      "@savanna/shared": ["../../packages/shared/dist/index.d.ts"],
-      "@savanna/shared/*": ["../../packages/shared/dist/*"]
+      "@saftap/shared": ["../../packages/shared/dist/index.d.ts"],
+      "@saftap/shared/*": ["../../packages/shared/dist/*"]
     }
   },
   "include": ["src/**/*.ts"],

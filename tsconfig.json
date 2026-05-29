@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "target": "ES2022",
     "module": "ESNext",
     "moduleResolution": "Bundler",
@@ -11,8 +12,13 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@savanna/shared": ["packages/shared/src"],
-      "@savanna/shared/*": ["packages/shared/src/*"]
+      "@saftap/shared": [
+        "packages/shared/src"
+      ],
+      "@saftap/shared/*": [
+        "packages/shared/src/*"
+      ]
     }
-  }
+  },
+  "extends": "expo/tsconfig.base"
 }

@@ -1,15 +1,28 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "ignoreDeprecations": "6.0" ,
     "baseUrl": ".",
     "jsx": "react-jsx",
-    "types": ["react", "react-native"],
+    "types": [
+      "react",
+      "react-native"
+    ],
     "noEmit": true,
     "paths": {
-      "@savanna/shared": ["../../packages/shared/src"],
-      "@savanna/shared/*": ["../../packages/shared/src/*"]
+      "@SafTap/shared": [
+        "../../packages/shared/src"
+      ],
+      "@SafTap/shared/*": [
+        "../../packages/shared/src/*"
+      ]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
