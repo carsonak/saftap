@@ -1,10 +1,16 @@
 {
   "expo": {
-    "name": "SafTap",
+    "name": "Safari Tap",
     "slug": "saftap",
     "version": "0.1.0",
     "orientation": "portrait",
-    "userInterfaceStyle": "automatic",
+    "userInterfaceStyle": "light",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "assetBundlePatterns": ["**/*"],
     "platforms": ["ios", "android", "web"],
     "ios": {
@@ -16,7 +22,9 @@
       }
     },
     "web": {
-      "bundler": "metro"
-    }
+      "bundler": "metro",
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": ["expo-font"]
   }
 }

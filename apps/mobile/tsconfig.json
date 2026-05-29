@@ -10,12 +10,8 @@
     ],
     "noEmit": true,
     "paths": {
-      "@SafTap/shared": [
-        "../../packages/shared/src"
-      ],
-      "@SafTap/shared/*": [
-        "../../packages/shared/src/*"
-      ]
+      "@SafTap/shared": [ "../../packages/shared/src" ],
+      "@SafTap/shared/*": [ "../../packages/shared/src/*" ]
     }
   },
   "include": [

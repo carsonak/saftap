@@ -12,12 +12,8 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@saftap/shared": [
-        "packages/shared/src"
-      ],
-      "@saftap/shared/*": [
-        "packages/shared/src/*"
-      ]
+      "@saftap/shared": ["packages/shared/src/index.ts"],
+      "@saftap/shared/*": ["packages/shared/src/*"]
     }
   },
   "extends": "expo/tsconfig.base"

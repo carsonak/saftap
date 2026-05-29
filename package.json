@@ -7,9 +7,14 @@
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
+    "lint:fix": "turbo run lint -- --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "backend:prisma:generate": "pnpm --filter @saftap/backend prisma:generate",
+    "backend:prisma:migrate": "pnpm --filter @saftap/backend prisma:migrate",
+    "backend:prisma:seed": "pnpm --filter @saftap/backend prisma:seed"
   },
   "devDependencies": {
     "@types/react": "~19.2.14",
@@ -19,7 +24,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^4.6.2",
-    "prettier": "^3.3.3",
+    "prettier": "^3.8.3",
     "turbo": "^2.9.16",
     "typescript": "~6.0.3"
   },

@@ -2,7 +2,7 @@ import { decodeEventLog, isAddress, type Address, type Hex } from "viem";
 import { getRequiredEnv } from "../config/env.js";
 import { AppError } from "../lib/app-error.js";
 import { prisma } from "../lib/prisma.js";
-import { darajaService } from "../modules/daraja/daraja.service.js";
+import { darajaService } from "../modules/mpesa/daraja.service.js";
 import { publicClient } from "./client.js";
 import { watchIncomingUsdc, type IncomingUsdcTransfer } from "./events.js";
 import { BASE_SEPOLIA_USDC_ADDRESS, usdcAbi } from "./usdc.js";
@@ -26,7 +26,11 @@ function getSettlementAddress(): Address {
   return settlementAddress;
 }
 
-async function handleIncomingTransfer({ from, amount, txHash }: IncomingUsdcTransfer): Promise<void> {
+async function handleIncomingTransfer({
+  from,
+  amount,
+  txHash,
+}: IncomingUsdcTransfer): Promise<void> {
   const tx = await prisma.transaction.findFirst({
     where: {
       baseTxHash: txHash,
@@ -40,7 +44,7 @@ async function handleIncomingTransfer({ from, amount, txHash }: IncomingUsdcTran
   }
 
   console.log(
-    `Processing incoming USDC transfer ${txHash} from ${from} for ${amount.toString()} units`,
+    `Processing incoming USDC transfer ${txHash} from ${from} for ${amount.toString()} units`
   );
 
   await prisma.transaction.update({
@@ -49,21 +53,18 @@ async function handleIncomingTransfer({ from, amount, txHash }: IncomingUsdcTran
   });
 
   try {
-    const payoutInput = {
-      amountKes: tx.amountKes,
-      transactionId: tx.id,
-      baseTxHash: txHash,
-    };
-
     const payoutResult = tx.destinationPhone
       ? await darajaService.sendToMpesa({
-          ...payoutInput,
           phoneNumber: tx.destinationPhone,
+          amountKes: tx.amountKes.toNumber(),
+          transactionId: tx.id,
+          recipientLabel: "Tourist payout",
         })
       : tx.destinationTill
         ? await darajaService.sendToTill({
-            ...payoutInput,
             tillNumber: tx.destinationTill,
+            amountKes: tx.amountKes.toNumber(),
+            transactionId: tx.id,
           })
         : undefined;
 
@@ -75,7 +76,7 @@ async function handleIncomingTransfer({ from, amount, txHash }: IncomingUsdcTran
       where: { id: tx.id },
       data: {
         status: "COMPLETED",
-        darajaReceiptId: payoutResult.receiptId,
+        darajaReceiptId: payoutResult.ConversationID ?? payoutResult.OriginatorConversationID,
       },
     });
   } catch (error) {
@@ -88,7 +89,10 @@ async function handleIncomingTransfer({ from, amount, txHash }: IncomingUsdcTran
   }
 }
 
-async function replayConfirmedTransfer(baseTxHash: string, settlementAddress: Address): Promise<void> {
+async function replayConfirmedTransfer(
+  baseTxHash: string,
+  settlementAddress: Address
+): Promise<void> {
   const receipt = await publicClient.getTransactionReceipt({ hash: baseTxHash as Hex });
 
   if (receipt.status !== "success") {
@@ -156,6 +160,9 @@ async function pollStuckOnChainTransactions(settlementAddress: Address): Promise
   }
 }
 
+/**
+ * Starts the blockchain monitor and returns a function to stop it.
+ */
 export function startMonitor(): () => void {
   if (cleanupWatcher || pollingTimer) {
     return stopMonitor;
@@ -180,6 +187,9 @@ export function startMonitor(): () => void {
   return stopMonitor;
 }
 
+/**
+ * Stops the blockchain monitor if it is running.
+ */
 export function stopMonitor(): void {
   cleanupWatcher?.();
 
