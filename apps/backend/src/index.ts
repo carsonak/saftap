@@ -3,6 +3,7 @@ import express from "express";
 import helmet from "helmet";
 import { API_VERSION, createHealthResponse } from "@saftap/shared";
 import { authRouter } from "./modules/auth/auth.routes.js";
+import { mpesaRouter } from "./modules/mpesa/mpesa.routes.js";
 
 const app = express();
 const port = Number(process.env.PORT ?? 3000);
@@ -20,6 +21,7 @@ app.get("/api/version", (_request, response) => {
 });
 
 app.use("/api/auth", authRouter);
+app.use("/mpesa", mpesaRouter);
 
 app.listen(port, () => {
   console.log(`Backend listening on http://localhost:${port}`);
