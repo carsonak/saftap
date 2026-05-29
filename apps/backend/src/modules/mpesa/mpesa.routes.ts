@@ -3,13 +3,19 @@
  * Handles Daraja callbacks from Safaricom
  */
 
-import { Router, type Request, type Response, type NextFunction, type Router as ExpressRouter } from "express";
+import {
+  Router,
+  type Request,
+  type Response,
+  type NextFunction,
+  type Router as ExpressRouter,
+} from "express";
 import { darajaService } from "./daraja.service.js";
 import type { DarajaCallbackBody } from "./mpesa.types.js";
 
 /**
  * Webhook router for handling Daraja callback requests.
-*/
+ */
 export const mpesaRouter: ExpressRouter = Router();
 
 /**
@@ -23,20 +29,23 @@ export const mpesaRouter: ExpressRouter = Router();
  * Note: This route is NOT protected with JWT authentication,
  * as Safaricom needs to be able to POST to it directly.
  */
-mpesaRouter.post("/callback", async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  try {
-    // Immediately respond with 200 to Safaricom to prevent retries
-    res.status(200).json({ message: "Callback received" });
+mpesaRouter.post(
+  "/callback",
+  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      // Immediately respond with 200 to Safaricom to prevent retries
+      res.status(200).json({ message: "Callback received" });
 
-    // Parse the callback body
-    const callbackBody = req.body as DarajaCallbackBody;
+      // Parse the callback body
+      const callbackBody = req.body as DarajaCallbackBody;
 
-    // Process callback asynchronously (don't await, fire-and-forget)
-    // This ensures Safaricom gets a quick response
-    darajaService.handleCallback(callbackBody).catch((error) => {
-      console.error("Failed to process Daraja callback:", error);
-    });
-  } catch (error) {
-    next(error);
+      // Process callback asynchronously (don't await, fire-and-forget)
+      // This ensures Safaricom gets a quick response
+      darajaService.handleCallback(callbackBody).catch((error) => {
+        console.error("Failed to process Daraja callback:", error);
+      });
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);

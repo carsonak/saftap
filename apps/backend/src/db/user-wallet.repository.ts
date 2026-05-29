@@ -6,7 +6,7 @@ type UserWithWallet = User & {
 
 /**
  * Input shape for creating a user together with a wallet record in the database.
-*/
+ */
 export type CreateUserWithWalletInput = {
   email: string;
   phone: string;
@@ -33,8 +33,8 @@ export async function createUserWithWallet(
         email: input.email,
         phone: input.phone,
         passwordHash: input.passwordHash,
-        role: input.role ?? "TOURIST"
-      }
+        role: input.role ?? "TOURIST",
+      },
     });
 
     const wallet = await tx.wallet.create({
@@ -43,14 +43,13 @@ export async function createUserWithWallet(
         baseAddress: input.baseAddress,
         encryptedKey: input.encryptedKey ?? null,
         cdpWalletId: input.cdpWalletId ?? null,
-        usdcBalance: input.usdcBalance ?? 0
-      }
+        usdcBalance: input.usdcBalance ?? 0,
+      },
     });
 
     return {
       ...user,
-      wallet
+      wallet,
     };
   });
 }
-

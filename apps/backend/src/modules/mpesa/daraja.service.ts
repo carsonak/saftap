@@ -38,9 +38,9 @@ async function getAccessToken(): Promise<string> {
   }
 
   try {
-    const credentials = Buffer.from(`${env.DARAJA_CONSUMER_KEY}:${env.DARAJA_CONSUMER_SECRET}`).toString(
-      "base64",
-    );
+    const credentials = Buffer.from(
+      `${env.DARAJA_CONSUMER_KEY}:${env.DARAJA_CONSUMER_SECRET}`
+    ).toString("base64");
 
     const response = await fetch(OAUTH_URL, {
       method: "GET",
@@ -257,7 +257,7 @@ async function simulateCallback(transactionId: string): Promise<void> {
 
 /**
  * Daraja service methods for token acquisition, B2B and B2C payments, and callbacks.
-*/
+ */
 export const darajaService = {
   getAccessToken,
   sendToMpesa,

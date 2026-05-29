@@ -17,7 +17,7 @@ const envSchema = z.object({
   DARAJA_PASSKEY: z.string().min(1, "DARAJA_PASSKEY is required"),
   JWT_SECRET: z.string().min(1, "JWT_SECRET is required"),
   DATABASE_URL: z.string().min(1, "DATABASE_URL is required"),
-  PORT: z.coerce.number().int().positive("PORT must be a positive integer")
+  PORT: z.coerce.number().int().positive("PORT must be a positive integer"),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);
@@ -37,12 +37,12 @@ if (!parsedEnv.success) {
 
 /**
  * Validated environment variables used by the backend.
-*/
+ */
 export const env = parsedEnv.data;
 
 /**
  * Reads a required environment variable and throws if it is missing.
-*/
+ */
 export function getRequiredEnv(name: string): string {
   const value = process.env[name];
 
@@ -55,7 +55,7 @@ export function getRequiredEnv(name: string): string {
 
 /**
  * Reads an optional environment variable or returns a fallback value.
-*/
+ */
 export function getOptionalEnv(name: string, fallback: string): string {
   return process.env[name] ?? fallback;
 }

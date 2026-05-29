@@ -81,7 +81,7 @@ describe("Daraja Service", () => {
           headers: expect.objectContaining({
             Authorization: expect.stringContaining("Basic"),
           }),
-        }),
+        })
       );
     });
 
@@ -115,13 +115,17 @@ describe("Daraja Service", () => {
         status: 401,
       });
 
-      await expect(darajaService.getAccessToken()).rejects.toThrow("Failed to obtain M-Pesa access token");
+      await expect(darajaService.getAccessToken()).rejects.toThrow(
+        "Failed to obtain M-Pesa access token"
+      );
     });
 
     it("should handle network errors", async () => {
       fetchMock.mockRejectedValueOnce(new Error("Network error"));
 
-      await expect(darajaService.getAccessToken()).rejects.toThrow("Failed to obtain M-Pesa access token");
+      await expect(darajaService.getAccessToken()).rejects.toThrow(
+        "Failed to obtain M-Pesa access token"
+      );
     });
 
     it("should include proper Basic Auth header", async () => {
@@ -237,7 +241,9 @@ describe("Daraja Service", () => {
         recipientLabel: "Test User",
       };
 
-      await expect(darajaService.sendToMpesa(params)).rejects.toThrow("Failed to send payment to M-Pesa");
+      await expect(darajaService.sendToMpesa(params)).rejects.toThrow(
+        "Failed to send payment to M-Pesa"
+      );
     });
   });
 
@@ -325,7 +331,9 @@ describe("Daraja Service", () => {
         transactionId: "till-fail",
       };
 
-      await expect(darajaService.sendToTill(params)).rejects.toThrow("Failed to send payment to Till");
+      await expect(darajaService.sendToTill(params)).rejects.toThrow(
+        "Failed to send payment to Till"
+      );
     });
   });
 

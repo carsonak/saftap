@@ -91,7 +91,7 @@ function validateDestination(params: InitiatePaymentParams): void {
 
   if (destinationCount !== 1) {
     throw new BadRequestError(
-      "Provide exactly one destination: destinationPhone, destinationTill, or paybillNumber",
+      "Provide exactly one destination: destinationPhone, destinationTill, or paybillNumber"
     );
   }
 
@@ -141,7 +141,7 @@ async function getExchangeRateImpl(): Promise<number> {
 async function executeUsdcTransferImpl(
   fromAddress: string,
   toAddress: string,
-  amountUSDC: number,
+  amountUSDC: number
 ): Promise<string> {
   assertAddress(fromAddress, "fromAddress");
   assertAddress(toAddress, "toAddress");
@@ -220,7 +220,7 @@ async function initiatePaymentImpl(params: InitiatePaymentParams): Promise<Trans
     const txHash = await paymentService.executeUsdcTransfer(
       wallet.baseAddress,
       settlementAddress,
-      params.amountUsdc,
+      params.amountUsdc
     );
 
     await prisma.$transaction([
@@ -287,7 +287,7 @@ async function getTransactionHistoryImpl(userId: string): Promise<Transaction[]>
 
 /**
  * Grouped payment service methods for rate lookup, transfer execution, and history retrieval.
-*/
+ */
 export const paymentService = {
   getExchangeRate: getExchangeRateImpl,
   executeUsdcTransfer: executeUsdcTransferImpl,
@@ -297,17 +297,17 @@ export const paymentService = {
 
 /**
  * Gets the current USDC/fiat exchange rate.
-*/
+ */
 export const getExchangeRate = paymentService.getExchangeRate;
 /**
  * Executes a USDC transfer on-chain as part of payment settlement.
-*/
+ */
 export const executeUsdcTransfer = paymentService.executeUsdcTransfer;
 /**
  * Initiates a payment flow and settles funds via USDC transfer.
-*/
+ */
 export const initiatePayment = paymentService.initiatePayment;
 /**
  * Retrieves transaction history for a user.
-*/
+ */
 export const getTransactionHistory = paymentService.getTransactionHistory;

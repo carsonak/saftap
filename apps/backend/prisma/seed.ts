@@ -20,20 +20,20 @@ async function main(): Promise<void> {
           baseAddress: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
           encryptedKey: "encrypted_dummy_private_key_payload",
           cdpWalletId: "cdp-wallet-sepolia-demo-001",
-          usdcBalance: "125.500000"
-        }
-      }
+          usdcBalance: "125.500000",
+        },
+      },
     },
     include: {
-      wallet: true
-    }
+      wallet: true,
+    },
   });
 
   console.log("Seed complete:", {
     userId: user.id,
     email: user.email,
     walletId: user.wallet?.id,
-    walletAddress: user.wallet?.baseAddress
+    walletAddress: user.wallet?.baseAddress,
   });
 }
 

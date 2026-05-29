@@ -83,13 +83,13 @@ function arrangeSuccessfulPayment(): void {
   }));
   prismaMock.wallet.update.mockResolvedValue(wallet);
   prismaMock.$transaction.mockImplementation(async (operations: Array<Promise<unknown>>) =>
-    Promise.all(operations),
+    Promise.all(operations)
   );
   darajaServiceMock.sendToMpesa.mockResolvedValue({ receiptId: "mpesa-receipt-001" });
   darajaServiceMock.sendToTill.mockResolvedValue({ receiptId: "till-receipt-001" });
   vi.spyOn(paymentService, "getExchangeRate").mockResolvedValue(129);
   vi.spyOn(paymentService, "executeUsdcTransfer").mockResolvedValue(
-    "0xabc1230000000000000000000000000000000000000000000000000000000000",
+    "0xabc1230000000000000000000000000000000000000000000000000000000000"
   );
 }
 
@@ -137,7 +137,7 @@ describe("payment service", () => {
     expect(paymentService.executeUsdcTransfer).toHaveBeenCalledWith(
       wallet.baseAddress,
       process.env.TREASURY_WALLET_ADDRESS,
-      params.amountUsdc,
+      params.amountUsdc
     );
   });
 
@@ -151,7 +151,7 @@ describe("payment service", () => {
     expect(darajaServiceMock.sendToMpesa).toHaveBeenCalledWith(
       expect.objectContaining({
         phoneNumber: "+254700000001",
-      }),
+      })
     );
     expect(darajaServiceMock.sendToTill).not.toHaveBeenCalled();
   });
@@ -216,7 +216,7 @@ describe("payment service", () => {
         touristId,
         paybillNumber: "987654",
         amountUsdc: 10,
-      }),
+      })
     ).rejects.toMatchObject({
       statusCode: 400,
       message: "accountRef is required when paybillNumber is provided",

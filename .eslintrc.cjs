@@ -3,12 +3,12 @@ module.exports = {
   root: true,
   env: {
     es2022: true,
-    node: true
+    node: true,
   },
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: "latest",
-    sourceType: "module"
+    sourceType: "module",
   },
   plugins: ["@typescript-eslint", "react", "react-hooks"],
   extends: [
@@ -16,41 +16,41 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
-    "prettier"
+    "prettier",
   ],
   settings: {
     react: {
-      version: "detect"
-    }
+      version: "detect",
+    },
   },
   ignorePatterns: ["dist", "build", "node_modules", ".expo"],
   overrides: [
     {
       files: ["*.cjs"],
       parserOptions: {
-        sourceType: "script"
+        sourceType: "script",
       },
       rules: {
-        "@typescript-eslint/no-var-requires": "off"
-      }
+        "@typescript-eslint/no-var-requires": "off",
+      },
     },
     {
       files: ["apps/backend/**/*.ts", "packages/shared/**/*.ts"],
       rules: {
         "react/react-in-jsx-scope": "off",
-        "react/prop-types": "off"
-      }
+        "react/prop-types": "off",
+      },
     },
     {
       files: ["apps/mobile/**/*.{ts,tsx}"],
       env: {
         browser: true,
-        node: false
+        node: false,
       },
       rules: {
         "react/react-in-jsx-scope": "off",
-        "react/prop-types": "off"
-      }
-    }
-  ]
+        "react/prop-types": "off",
+      },
+    },
+  ],
 };

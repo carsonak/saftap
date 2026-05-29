@@ -4,7 +4,7 @@ import { BASE_SEPOLIA_USDC_ADDRESS, usdcAbi } from "./usdc.js";
 
 /**
  * Incoming USDC transfer event payload captured from blockchain event watchers.
-*/
+ */
 export interface IncomingUsdcTransfer {
   from: Address;
   amount: bigint;
@@ -13,10 +13,10 @@ export interface IncomingUsdcTransfer {
 
 /**
  * Starts a watch for incoming on-chain USDC transfers.
-*/
+ */
 export function watchIncomingUsdc(
   settlementAddress: Address,
-  onTransfer: (transfer: IncomingUsdcTransfer) => void,
+  onTransfer: (transfer: IncomingUsdcTransfer) => void
 ): () => void {
   return publicClient.watchContractEvent({
     address: BASE_SEPOLIA_USDC_ADDRESS,

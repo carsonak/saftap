@@ -139,7 +139,7 @@ async function main(): Promise<void> {
   log(
     `Payment complete! Recipient received KES ${transactionRecord?.amountKes ?? "unknown"}. M-Pesa receipt: ${
       transactionRecord?.darajaReceiptId ?? "unknown"
-    }`,
+    }`
   );
 }
 

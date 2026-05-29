@@ -16,7 +16,7 @@ import { prisma } from "../../lib/prisma.js";
 
 /**
  * Result data returned when a new wallet is created for a merchant or tourist.
-*/
+ */
 export interface CreateWalletResult {
   address: Address;
   cdpWalletId: string;
@@ -24,25 +24,25 @@ export interface CreateWalletResult {
 
 /**
  * Formatted USDC balance string returned by wallet balance lookups.
-*/
+ */
 export type UsdcBalanceResult = string;
 
 /**
  * Transaction hash returned when funding a wallet from treasury.
-*/
+ */
 export type FundFromTreasuryResult = Hex;
 
 /**
  * On-chain USDC contract address used for Sepolia network operations.
-*/
+ */
 export const BASE_SEPOLIA_USDC_ADDRESS = getOptionalEnv(
   "BASE_SEPOLIA_USDC_ADDRESS",
-  "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+  "0x036CbD53842c5426634e7929541eC2318f3dCF7e"
 ) as Address;
 
 /**
  * Minimal ERC-20 ABI used for USDC balance and transfer contract calls.
-*/
+ */
 export const usdcAbi = [
   {
     type: "function",
@@ -65,7 +65,7 @@ export const usdcAbi = [
 
 /**
  * Public blockchain client for Sepolia read-only operations.
-*/
+ */
 export const publicClient = createPublicClient({
   chain: baseSepolia,
   transport: http(getOptionalEnv("BASE_SEPOLIA_RPC_URL", baseSepolia.rpcUrls.default.http[0])),
@@ -79,7 +79,7 @@ function getTreasuryAccount() {
 
 /**
  * Creates a wallet client using the treasury account for sending funds.
-*/
+ */
 export function getWalletClient() {
   return createWalletClient({
     account: getTreasuryAccount(),
@@ -112,7 +112,10 @@ function formatUsdcBalance(balance: bigint): string {
   const divisor = 10n ** decimals;
   const whole = balance / divisor;
   const fractional = balance % divisor;
-  const trimmedFractional = fractional.toString().padStart(Number(decimals), "0").replace(/0+$/, "");
+  const trimmedFractional = fractional
+    .toString()
+    .padStart(Number(decimals), "0")
+    .replace(/0+$/, "");
   const displayFractional = trimmedFractional.padEnd(2, "0");
 
   return `${whole.toString()}.${displayFractional}`;
@@ -176,7 +179,7 @@ export async function getUsdcBalance(walletAddress: string): Promise<UsdcBalance
 
 export async function fundFromTreasury(
   walletAddress: string,
-  amountUSDC: number,
+  amountUSDC: number
 ): Promise<FundFromTreasuryResult> {
   assertAddress(walletAddress, "walletAddress");
 
@@ -195,7 +198,7 @@ export async function fundFromTreasury(
       throw new AppError(
         "TREASURY_PRIVATE_KEY does not match TREASURY_WALLET_ADDRESS",
         500,
-        "TREASURY_ADDRESS_MISMATCH",
+        "TREASURY_ADDRESS_MISMATCH"
       );
     }
 
@@ -215,7 +218,7 @@ export async function fundFromTreasury(
 
 /**
  * Builds a Coinbase onramp URL for funding the user wallet with USDC.
-*/
+ */
 export function getOnrampUrl(walletAddress: string, amountUSD: number): string {
   assertAddress(walletAddress, "walletAddress");
 
@@ -235,7 +238,7 @@ export function getOnrampUrl(walletAddress: string, amountUSD: number): string {
         assets: ["USDC"],
         supportedNetworks: ["base"],
       },
-    ]),
+    ])
   );
   url.searchParams.set("defaultAsset", "USDC");
   url.searchParams.set("defaultNetwork", "base");

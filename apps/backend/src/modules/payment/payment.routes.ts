@@ -13,7 +13,7 @@ import {
 
 /**
  * Express router for payment-related API endpoints.
-*/
+ */
 export const paymentRouter: ExpressRouter = Router();
 
 paymentRouter.get("/rate", getRate);

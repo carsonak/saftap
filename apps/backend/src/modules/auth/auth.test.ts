@@ -112,7 +112,7 @@ describe("auth service", () => {
       login({
         email: mockUser.email,
         password: "wrong-password",
-      }),
+      })
     ).rejects.toMatchObject({
       statusCode: 401,
       message: "Invalid email or password",

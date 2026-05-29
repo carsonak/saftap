@@ -109,7 +109,7 @@ export async function login(data: LoginDto): Promise<AuthResponse> {
 
 /**
  * Function performing generateToken operations in the backend.
-*/
+ */
 export function generateToken(user: Pick<User, "id">, walletAddress: string): string {
   return jwt.sign(
     {
@@ -117,13 +117,13 @@ export function generateToken(user: Pick<User, "id">, walletAddress: string): st
       walletAddress,
     } satisfies AuthTokenPayload,
     getJwtSecret(),
-    { expiresIn: JWT_EXPIRES_IN },
+    { expiresIn: JWT_EXPIRES_IN }
   );
 }
 
 /**
  * Function performing verifyToken operations in the backend.
-*/
+ */
 export function verifyToken(token: string): AuthTokenPayload {
   try {
     return assertAuthTokenPayload(jwt.verify(token, getJwtSecret()));

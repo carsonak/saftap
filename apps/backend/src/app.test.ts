@@ -24,7 +24,7 @@ describe("backend app", () => {
       expect.objectContaining({
         status: "ok",
         version: expect.any(String),
-      }),
+      })
     );
   });
 

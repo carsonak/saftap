@@ -66,7 +66,7 @@ app.use(
     error: unknown,
     _request: express.Request,
     response: express.Response,
-    _next: express.NextFunction,
+    _next: express.NextFunction
   ) => {
     if (error instanceof AppError) {
       response.status(error.statusCode).json({ success: false, error: error.message });
@@ -75,7 +75,7 @@ app.use(
 
     console.error(error);
     response.status(500).json({ success: false, error: "Internal server error" });
-  },
+  }
 );
 
 export { app };
