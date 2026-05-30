@@ -2,6 +2,8 @@ import type { ConfigContext, ExpoConfig } from "@expo/config";
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
+  name: config.name ?? "SafTap",
+  slug: config.slug ?? "saftap",
   extra: {
     ...config.extra,
     apiUrl:

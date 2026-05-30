@@ -45,8 +45,7 @@ SafTap acts as a **Liquidity Bridge**:
 ## Technical Architecture
 
 ### Apps & Packages
-
-- `apps/mobile`: **SoftPOS Interface.** A React Native (Expo) app for merchants to manage sales and generate payment QRs.
+- `frontend`: **SoftPOS Interface.** A React Native (Expo) app for merchants to manage sales and generate payment QRs.
 - `apps/backend`: **The Settlement Engine.** A Node.js/TypeScript service that monitors the blockchain and integrates with the M-PESA Daraja API.
 - `packages/shared`: **The Core Logic.** Shared types, constants, and utility functions for cross-platform consistency.
 
@@ -86,7 +85,7 @@ SafTap acts as a **Liquidity Bridge**:
    ```
 
 3. **Configure Environment:**
-   Create `.env` files in `apps/backend` and `apps/mobile` based on the provided `.env.example`.
+   Create `.env` files in `apps/backend` and `frontend` based on the provided `.env.example`.
 
 4. **Run the project:**
    ```bash
