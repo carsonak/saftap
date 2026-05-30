@@ -1,0 +1,9 @@
+{
+  "build": {
+    "builder": "NIXPACKS"
+  },
+  "deploy": {
+    "startCommand": "pnpm --filter @saftap/backend start",
+    "healthcheckPath": "/health"
+  }
+}
